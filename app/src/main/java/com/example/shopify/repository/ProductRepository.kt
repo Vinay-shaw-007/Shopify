@@ -25,7 +25,7 @@ class ProductRepository @Inject constructor(private val productAPI: ProductAPI) 
             } else {
                 _productResponseLiveData.emit(NetworkResult.Error("Something went wrong."))
             }
-            Log.d("Shopify", response.body().toString())
+
         } catch (e: Exception) {
             _productResponseLiveData.emit(NetworkResult.Error(e.message))
         }
