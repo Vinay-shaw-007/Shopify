@@ -1,4 +1,4 @@
-package com.example.shopify.adapter
+package com.example.shopify.ui.adapter
 
 // MyPagerAdapter.kt
 import android.view.LayoutInflater

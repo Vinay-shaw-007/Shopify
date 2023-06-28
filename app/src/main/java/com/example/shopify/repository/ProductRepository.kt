@@ -1,8 +1,5 @@
 package com.example.shopify.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.shopify.api.ProductAPI
 import com.example.shopify.model.APIResponse
 import com.example.shopify.utils.NetworkResult
@@ -11,23 +8,28 @@ import javax.inject.Inject
 
 class ProductRepository @Inject constructor(private val productAPI: ProductAPI) {
 
-    private val _productResponseLiveData = MutableStateFlow<NetworkResult<APIResponse>>(NetworkResult.Loading())
-    val productResponseLiveData: MutableStateFlow<NetworkResult<APIResponse>>
-        get() = _productResponseLiveData
+    // Mutable state flow for holding the product response
+    private val _productResponseStateFlow = MutableStateFlow<NetworkResult<APIResponse>>(NetworkResult.Loading())
+    val productResponseStateFlow: MutableStateFlow<NetworkResult<APIResponse>>
+        get() = _productResponseStateFlow
 
+    // Function to fetch product details from the API
     suspend fun getProductDetails() {
         try {
+            // Make the API call
             val response = productAPI.getProductResponse()
+
+            // Handle the API response
             if (response.isSuccessful && response.body() != null) {
-                _productResponseLiveData.emit(NetworkResult.Success(response.body()!!))
+                _productResponseStateFlow.emit(NetworkResult.Success(response.body()!!))
             } else if (response.errorBody() != null) {
-                _productResponseLiveData.emit(NetworkResult.Error("Something went wrong."))
+                _productResponseStateFlow.emit(NetworkResult.Error("Something went wrong."))
             } else {
-                _productResponseLiveData.emit(NetworkResult.Error("Something went wrong."))
+                _productResponseStateFlow.emit(NetworkResult.Error("Something went wrong."))
             }
 
         } catch (e: Exception) {
-            _productResponseLiveData.emit(NetworkResult.Error(e.message))
+            _productResponseStateFlow.emit(NetworkResult.Error(e.message))
         }
 
     }

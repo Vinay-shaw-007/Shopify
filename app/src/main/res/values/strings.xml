@@ -2,10 +2,7 @@
     <string name="app_name">Shopify</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="product_detail_fragment_label">Product Detail Fragment</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
@@ -46,4 +43,19 @@
     <string name="learn_more"><u>Learn more</u></string>
     <string name="price">%s KWD</string>
     <string name="sku">SKU: %s</string>
+    <string name="add_to_bag">Add to bag</string>
+    <string name="share">Share</string>
+    <string name="product_information">Product Information</string>
+    <string name="minus_sign">-</string>
+    <string name="one">1</string>
+    <string name="plus_sign">+</string>
+    <string name="quantity">Quantity</string>
+    <string name="_0_88_kwd">0.88 KWD</string>
+    <string name="or_4_interest_free_payments">or 4 interest-free payments</string>
+    <string name="color">Color:</string>
+    <string name="_4_50_kwd">4.50 KWD</string>
+    <string name="sku_anesthesia_once_collection_weekly">SKU: anesthesia-once-collection-weekly</string>
+    <string name="once_collection_weekly">Once Collection Weekly</string>
+    <string name="anesthesia">ANESTHESIA</string>
+    <string name="tabby_logo">tabby_logo</string>
 </resources>

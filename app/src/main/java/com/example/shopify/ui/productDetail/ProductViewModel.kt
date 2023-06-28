@@ -1,6 +1,5 @@
-package com.example.shopify
+package com.example.shopify.ui.productDetail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shopify.model.APIResponse
@@ -14,8 +13,11 @@ import javax.inject.Inject
 @HiltViewModel
 class ProductViewModel @Inject constructor(private val repository: ProductRepository): ViewModel(){
 
-    val productResponseLiveData: MutableStateFlow<NetworkResult<APIResponse>>
-        get() = repository.productResponseLiveData
+    // Mutable state flow for holding the product response
+    val productResponseStateFlow: MutableStateFlow<NetworkResult<APIResponse>>
+        get() = repository.productResponseStateFlow
+
+    // Function to get product details from the repository
     fun getProductDetails() {
         viewModelScope.launch {
             repository.getProductDetails()

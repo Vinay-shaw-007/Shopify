@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".ui.productDetail.ProductDetailFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -53,7 +53,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="ANESTHESIA"
+                android:text="@string/anesthesia"
                 android:textAllCaps="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spring_dots_indicator" />
@@ -65,7 +65,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/inter_light"
-                android:text="Once Collection Weekly"
+                android:text="@string/once_collection_weekly"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/brandName" />
 
@@ -76,7 +76,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/inter_extra_light"
-                android:text="SKU: anesthesia-once-collection-weekly"
+                android:text="@string/sku_anesthesia_once_collection_weekly"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/name" />
@@ -88,7 +88,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="4.50 KWD"
+                android:text="@string/_4_50_kwd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spring_dots_indicator" />
 
@@ -99,7 +99,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/inter_regular"
-                android:text="Color: "
+                android:text="@string/color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/skuName" />
 
@@ -139,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/inter_semi_bold"
-                        android:text="0.88 KWD"
+                        android:text="@string/_0_88_kwd"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -149,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/inter_medium"
-                        android:text="or 4 interest-free payments"
+                        android:text="@string/or_4_interest_free_payments"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -172,7 +172,8 @@
                         android:src="@drawable/tabby"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="@string/tabby_logo" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -184,7 +185,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/inter_regular"
-                android:text="Quantity"
+                android:text="@string/quantity"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bannerCardView" />
 
@@ -196,21 +197,23 @@
                 android:layout_marginTop="8dp"
                 android:background="#9E9E9E"
                 android:gravity="center"
-                android:text="+"
+                android:text="@string/plus_sign"
+                android:clickable="true"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView6" />
+                app:layout_constraintTop_toBottomOf="@id/textView6"
+                android:focusable="true" />
 
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/productQuantity"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="4dp"
                 android:background="@drawable/bg_stroke"
                 android:gravity="center"
-                android:text="1"
+                android:text="@string/one"
                 app:layout_constraintStart_toEndOf="@+id/btnPlus"
                 app:layout_constraintTop_toTopOf="@+id/btnPlus" />
 
@@ -222,27 +225,29 @@
                 android:layout_marginTop="8dp"
                 android:background="@color/black"
                 android:gravity="center"
-                android:text="-"
+                android:text="@string/minus_sign"
+                android:clickable="true"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@+id/textView10"
-                app:layout_constraintTop_toBottomOf="@id/textView6" />
+                app:layout_constraintStart_toEndOf="@+id/productQuantity"
+                app:layout_constraintTop_toBottomOf="@id/textView6"
+                android:focusable="true" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/productDetailLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
-                android:drawableEnd="@drawable/arrow_down"
                 android:fontFamily="@font/inter_medium"
                 android:paddingVertical="16dp"
-                android:text="Product Information"
+                android:text="@string/product_information"
                 android:textAllCaps="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnMinus" />
+                app:layout_constraintTop_toBottomOf="@id/btnMinus"
+                app:drawableEndCompat="@drawable/arrow_down" />
 
             <TextView
                 android:id="@+id/productDescription"
@@ -255,29 +260,31 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView11"
+                app:layout_constraintTop_toBottomOf="@id/productDetailLabel"
                 tools:visibility="gone" />
 
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/md_theme_light_dark_secondary"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/btnAddToBag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/productDescription" />
+                app:layout_constraintTop_toBottomOf="@id/productDescription"
+                tools:visibility="gone" />
 
             <Button
                 android:id="@+id/btnAddToBag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:paddingVertical="14dp"
-                android:text="Add to bag"
+                android:text="@string/add_to_bag"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view" />
@@ -290,9 +297,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
-
                 android:paddingVertical="14dp"
-                android:text="Share"
+                android:text="@string/share"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnAddToBag" />

@@ -1,4 +1,4 @@
-package com.example.shopify.adapter
+package com.example.shopify.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
