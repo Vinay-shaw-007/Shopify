@@ -44,4 +44,6 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="learn_more"><u>Learn more</u></string>
+    <string name="price">%s KWD</string>
+    <string name="sku">SKU: %s</string>
 </resources>

@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.shopify.R
 import com.example.shopify.databinding.SingleImageItemBinding
 import com.example.shopify.databinding.SwatchLayoutItemBinding
 
-class SwatchAdapter(private val items: List<String>): RecyclerView.Adapter<SwatchAdapter.MyViewHolder>() {
+class SwatchAdapter(private val items: List<String>) :
+    RecyclerView.Adapter<SwatchAdapter.MyViewHolder>() {
 
 //    private val items: List<String> = listOf("Page 1", "Page 2", "Page 3")
 
@@ -31,7 +34,11 @@ class SwatchAdapter(private val items: List<String>): RecyclerView.Adapter<Swatc
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: String) {
-            Glide.with(binding.root).load(item).into(binding.singleImage)
+            Glide
+                .with(binding.root)
+                .load(item)
+                .placeholder(R.drawable.placeholder)
+                .into(binding.singleImage)
         }
     }
 }

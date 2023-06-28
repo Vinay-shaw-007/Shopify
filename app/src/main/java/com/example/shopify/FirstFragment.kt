@@ -15,17 +15,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.TransitionManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.shopify.adapter.SwatchAdapter
 import com.example.shopify.adapter.ViewPagerAdapter
 import com.example.shopify.databinding.FragmentFirstBinding
+import com.example.shopify.model.ConfigurableOption
+import com.example.shopify.model.Data
 import com.example.shopify.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -34,6 +37,7 @@ import kotlinx.coroutines.launch
 class FirstFragment : Fragment() {
 
     private lateinit var viewPager: ViewPager2
+    private lateinit var recyclerView: RecyclerView
 
     private var _binding: FragmentFirstBinding? = null
 
@@ -58,104 +62,138 @@ class FirstFragment : Fragment() {
 
 
         viewPager = binding.imageSlider
-        val adapter = ViewPagerAdapter(
-            listOf(
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-            )
-        )
-        viewPager.adapter = adapter
-        binding.springDotsIndicator.attachTo(viewPager)
 
+        recyclerView = binding.swatchRecyclerView
 
-        val recyclerView = binding.swatchRecyclerView
-        val swatchAdapter = SwatchAdapter(
-            listOf(
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-                "https://klinq.com/media/catalog/product/cache/6ba02f1c1feeeb8ea72e23b04b2a55ca/8/8/8809579838296-1_mj8bpalcovgwf41a.jpg",
-            )
-        )
-        recyclerView.adapter = swatchAdapter
-
-
+        productViewModel.getProductDetails()
 
         binding.textView11.setOnClickListener {
-            if (binding.textView12.isVisible) {
-                val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.arrow_down)
-
-                // Fade out animation for textView12
-                val fadeOutAnimator = ObjectAnimator.ofFloat(binding.textView12, "alpha", 1f, 0f)
-                fadeOutAnimator.duration = 300
-                fadeOutAnimator.addListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        binding.textView12.visibility = View.GONE
-                        binding.view.visibility = View.GONE
-
-                    }
-                })
-                fadeOutAnimator.start()
-
-                binding.textView11.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
-            } else {
-                val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.arrow_up)
-
-                // Fade in animation for textView12
-                binding.textView12.alpha = 0f
-                binding.textView12.visibility = View.VISIBLE
-                binding.view.visibility = View.VISIBLE
-                val fadeInAnimator = ObjectAnimator.ofFloat(binding.textView12, "alpha", 0f, 1f)
-                fadeInAnimator.duration = 300
-                fadeInAnimator.start()
-
-                binding.textView11.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
-            }
+            hideAndShowProductDetailSection()
         }
 
+        binding.productDescription.setOnClickListener {
+            hideAndShowProductDetailSection()
+        }
 
-//        productViewModel.getProductDetails()
         observer()
 
+    }
+
+    private fun hideAndShowProductDetailSection() {
+        if (binding.productDescription.isVisible) {
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.arrow_down)
+
+            val fadeOutAnimator = ObjectAnimator.ofFloat(binding.productDescription, "alpha", 1f, 0f)
+            fadeOutAnimator.duration = 300
+            fadeOutAnimator.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    binding.productDescription.visibility = View.GONE
+                    binding.view.visibility = View.GONE
+
+                }
+            })
+
+            fadeOutAnimator.start()
+
+            binding.textView11.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+        } else {
+            val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.arrow_up)
+
+            binding.productDescription.alpha = 0f
+            binding.productDescription.visibility = View.VISIBLE
+            binding.view.visibility = View.VISIBLE
+            val fadeInAnimator = ObjectAnimator.ofFloat(binding.productDescription, "alpha", 0f, 1f)
+            fadeInAnimator.duration = 300
+            fadeInAnimator.start()
+
+            binding.textView11.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+        }
     }
 
     private fun observer() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 productViewModel.productResponseLiveData.collectLatest {
+                    binding.progressBar.visibility = View.GONE
                     when (it) {
                         is NetworkResult.Success -> {
-                            val data = it.data
-                            Log.d("Shopify", data.toString())
+                            val apiResponse = it.data
+                            apiResponse?.let {
+                                setViewPagerImages(apiResponse.data.images)
+                                setSwatchesImages(apiResponse.data.configurable_option)
+                                setOtherUIDetails(apiResponse.data)
+                            }
+                            binding.nestedScrollView.visibility = View.VISIBLE
                         }
 
                         is NetworkResult.Error -> {
 
                         }
 
-                        is NetworkResult.Loading -> {}
+                        is NetworkResult.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.nestedScrollView.visibility = View.GONE
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun setOtherUIDetails(data: Data) {
+        binding.apply {
+            brandName.text = data.brand_name
+            name.text = data.name
+            skuName.text = getString(R.string.sku, data.sku)
+            price.text = getString(R.string.price, data.price.substring(0, 4))
+            val rawDescription = data.description
+            val stringBuilder = StringBuilder()
+            val extractedValues = extractTextFromTags(rawDescription)
+            for (value in extractedValues) {
+                stringBuilder.append(value)
+                stringBuilder.append("\n")
+            }
+            productDescription.text = stringBuilder
+        }
+    }
+
+    private fun extractTextFromTags(htmlString: String): List<String> {
+        val document: Document = Jsoup.parse(htmlString)
+
+        val extractedValues = mutableListOf<String>()
+
+        fun extractTextFromElement(element: Element) {
+            when (element.tag().normalName()) {
+                "p", "ul" -> extractedValues.add(element.ownText())
+                "li" -> extractedValues.add("• ${element.ownText()}")
+            }
+
+            for (child in element.children()) {
+                extractTextFromElement(child)
+            }
+        }
+
+        extractTextFromElement(document.body())
+
+        return extractedValues
+    }
+
+    private fun setSwatchesImages(configurableOption: List<ConfigurableOption>) {
+        val swatchImages = ArrayList<String>()
+        configurableOption.forEach { item ->
+            item.attributes.forEach {
+                swatchImages.add(it.swatch_url)
+            }
+
+        }
+        val swatchAdapter = SwatchAdapter(swatchImages)
+        recyclerView.adapter = swatchAdapter
+    }
+
+    private fun setViewPagerImages(images: List<String>) {
+        val adapter = ViewPagerAdapter(images)
+        viewPager.adapter = adapter
+        binding.springDotsIndicator.attachTo(viewPager)
     }
 
     override fun onDestroyView() {

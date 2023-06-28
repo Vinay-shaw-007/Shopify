@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.shopify.R
 import com.example.shopify.databinding.SingleImageItemBinding
 
 class ViewPagerAdapter(private val items: List<String>) : RecyclerView.Adapter<ViewPagerAdapter.MyViewHolder>() {
@@ -31,7 +32,11 @@ class ViewPagerAdapter(private val items: List<String>) : RecyclerView.Adapter<V
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: String) {
-            Glide.with(binding.root).load(item).into(binding.singleImage)
+            Glide
+                .with(binding.root)
+                .load(item)
+                .placeholder(R.drawable.placeholder)
+                .into(binding.singleImage)
         }
     }
 }
