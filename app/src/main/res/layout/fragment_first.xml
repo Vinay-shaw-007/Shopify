@@ -11,7 +11,8 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,11 +33,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:dampingRatio="0.5"
-                app:dotsColor="@color/material_dynamic_secondary0"
+                app:dotsColor="@color/md_theme_light_dark_onBackground"
                 app:dotsCornerRadius="10dp"
                 app:dotsSize="10dp"
                 app:dotsSpacing="3dp"
-                app:dotsStrokeColor="@color/material_dynamic_secondary0"
+                app:dotsStrokeColor="@color/md_theme_light_dark_secondary"
                 app:dotsStrokeWidth="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -309,5 +310,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

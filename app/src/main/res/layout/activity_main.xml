@@ -27,7 +27,8 @@
                     android:src="@drawable/arrow_left"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/md_theme_light_dark_secondary" />
                 <!-- Custom toolbar header -->
                 <TextView
                     android:id="@+id/toolbarTitle"
@@ -49,7 +50,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/shopping_cart" />
+                    app:srcCompat="@drawable/shopping_cart"
+                    app:tint="@color/md_theme_light_dark_secondary"/>
 
                 <ImageView
                     android:id="@+id/logout"
@@ -59,7 +61,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/shoppingCart"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/logout" />
+                    app:srcCompat="@drawable/logout"
+                    app:tint="@color/md_theme_light_dark_secondary"/>
 
                 <ImageView
                     android:id="@+id/heart"
@@ -69,7 +72,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/logout"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/heart" />
+                    app:srcCompat="@drawable/heart"
+                    app:tint="@color/md_theme_light_dark_secondary"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
